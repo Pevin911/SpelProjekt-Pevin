@@ -7,7 +7,7 @@ namespace SpelProjekt_Pevin
     public class Game1 : Game
     {
         private GraphicsDeviceManager _graphics;
-        private SpriteBatch _spriteBatch;
+        private SpriteBatch spriteBatch;
 
         public Game1()
         {
@@ -25,7 +25,7 @@ namespace SpelProjekt_Pevin
 
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
+            spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
         }
