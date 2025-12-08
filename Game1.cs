@@ -9,6 +9,9 @@ namespace SpelProjekt_Pevin
         private GraphicsDeviceManager _graphics;
         private SpriteBatch spriteBatch;
 
+        Texture2D apple;
+        Rectangle appleRectangle;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -27,7 +30,8 @@ namespace SpelProjekt_Pevin
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            apple = Content.Load<Texture2D>("Apple");
+            appleRectangle = new Rectangle(100, 100, apple.Width / 5, apple.Height / 5);
         }
 
         protected override void Update(GameTime gameTime)
@@ -44,7 +48,9 @@ namespace SpelProjekt_Pevin
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin();
+            spriteBatch.Draw(apple, appleRectangle, Color.White);
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
