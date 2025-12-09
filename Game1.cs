@@ -53,6 +53,7 @@ namespace SpelProjekt_Pevin
             spriteBatch.End();
 
             base.Draw(gameTime);
+ 
         }
     }
 }
