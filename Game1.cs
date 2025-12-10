@@ -48,7 +48,7 @@ namespace SpelProjekt_Pevin
                 Exit();
 
             tangentbord = Keyboard.GetState();
-
+             
             if (tangentbord.IsKeyDown(Keys.Left))
             {
                 basketRectangle.X -= 3;
