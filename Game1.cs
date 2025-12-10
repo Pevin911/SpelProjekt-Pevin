@@ -1,12 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
+using System.Collections.Generic;
 
 namespace SpelProjekt_Pevin
 { 
     public class Game1 : Game
     {
-        private GraphicsDeviceManager _graphics;
+        private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
 
@@ -16,9 +18,16 @@ namespace SpelProjekt_Pevin
         Rectangle appleRectangle;
         KeyboardState tangentbord = Keyboard.GetState();
 
+        Random randomApple = new Random();
+
+        List<Random> apples = List<Random>();
+
+        double appleTimer = 0;
+
+
         public Game1()
         {
-            _graphics = new GraphicsDeviceManager(this);
+            graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
@@ -57,6 +66,17 @@ namespace SpelProjekt_Pevin
             {
                 basketRectangle.X += 3;
             }
+
+            
+            int randomApple1 = randomApple.Next(0, graphics.PreferredBackBufferWidth - apple.Width);
+
+            appleRectangle.Y += 2;
+
+            if (true)
+            {
+
+            }
+
 
             base.Update(gameTime);
         }
