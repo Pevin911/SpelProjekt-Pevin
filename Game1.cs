@@ -14,8 +14,10 @@ namespace SpelProjekt_Pevin
 
         Texture2D apple;
         Texture2D basket;
+
         Rectangle basketRectangle;
         Rectangle appleRectangle;
+
         KeyboardState tangentbord = Keyboard.GetState();
 
         Random slumpTal = new Random();
@@ -23,6 +25,10 @@ namespace SpelProjekt_Pevin
         List<Rectangle> apples = new List<Rectangle>();
 
         double appleTimer = 0;
+        double basketX;
+        int score = 0;
+
+        SpriteFont scoreFont;
 
 
         public Game1()
@@ -34,8 +40,6 @@ namespace SpelProjekt_Pevin
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
             base.Initialize();
         }
 
@@ -44,42 +48,61 @@ namespace SpelProjekt_Pevin
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             apple = Content.Load<Texture2D>("Apple");
-            appleRectangle = new Rectangle(100, 100, apple.Width / 5, apple.Height / 5);
-            
+            appleRectangle = new Rectangle(100, 100, apple.Width / 2, apple.Height / 2);
+
             basket = Content.Load<Texture2D>("Basket");
             basketRectangle = new Rectangle(400, 300, basket.Width / 5, basket.Height / 5);
 
+            scoreFont = Content.Load<SpriteFont>("ScoreFont");
+
+            basketX = basketRectangle.X;
+
+
+
         }
-         
+
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-
-            appleRectangle.Y += 2;
+            KeyboardState key = Keyboard.GetState();
 
             tangentbord = Keyboard.GetState();
              
             if (tangentbord.IsKeyDown(Keys.Left))
             {
-                basketRectangle.X -= 3;
+                basketRectangle.X -= 5;
             }
             if (tangentbord.IsKeyDown(Keys.Right))
             {
-                basketRectangle.X += 3;
+                basketRectangle.X += 5;
             }
 
-            if (slumpTal.Next(0, 101) < 1)
+            if (slumpTal.Next(0, 101) < 0.5)
             {
                 int randomAppleX = slumpTal.Next(0, graphics.PreferredBackBufferWidth - apple.Width);
                 apples.Add(new Rectangle(randomAppleX, 0 - apple.Height, apple.Width, apple.Height));
                 
             }
 
-            for (int i = 0; i < apples.Contains; i++)
+            for (int i = apples.Count - 1; i >= 0; i--)
             {
+                Rectangle a = apples[i];
 
+                a.Y += 4;
+
+                apples[i] = a;
+
+                if (a.Intersects(basketRectangle))
+                {
+                    score++;
+                    apples.RemoveAt(i);
+                }
+                else if (a.Y > graphics.PreferredBackBufferHeight)
+                {
+                    apples.RemoveAt(i);
+                }
             }
 
             base.Update(gameTime);
@@ -91,13 +114,15 @@ namespace SpelProjekt_Pevin
 
             spriteBatch.Begin();
 
-            foreach (var äpple in apples)
+            foreach (var a in apples)
             {
-                spriteBatch.Draw(apple, appleRectangle, Color.White);
+                spriteBatch.Draw(apple, a, Color.White);
             }
 
-            spriteBatch.Draw(apple, appleRectangle, Color.White);
             spriteBatch.Draw(basket, basketRectangle, Color.White);
+
+            spriteBatch.DrawString(scoreFont, $"Score: {score}", new Vector2(10, 10), Color.White);
+
             spriteBatch.End();
 
             base.Draw(gameTime);
