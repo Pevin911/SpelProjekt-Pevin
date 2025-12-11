@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 
 namespace SpelProjekt_Pevin
-{ 
+{  
     public class Game1 : Game
     {
         private GraphicsDeviceManager graphics;
