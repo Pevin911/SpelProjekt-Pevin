@@ -50,7 +50,7 @@ namespace SpelProjekt_Pevin
             basketRectangle = new Rectangle(400, 300, basket.Width / 5, basket.Height / 5);
 
         }
-
+         
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -77,13 +77,10 @@ namespace SpelProjekt_Pevin
                 
             }
 
-            
-
-            if (true)
+            for (int i = 0; i < apples.Contains; i++)
             {
 
             }
-
 
             base.Update(gameTime);
         }
