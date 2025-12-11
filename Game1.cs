@@ -18,9 +18,9 @@ namespace SpelProjekt_Pevin
         Rectangle appleRectangle;
         KeyboardState tangentbord = Keyboard.GetState();
 
-        Random randomApple = new Random();
+        Random slumpTal = new Random();
 
-        List<Random> apples = List<Random>();
+        List<Rectangle> apples = new List<Rectangle>();
 
         double appleTimer = 0;
 
@@ -56,6 +56,9 @@ namespace SpelProjekt_Pevin
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+
+            appleRectangle.Y += 2;
+
             tangentbord = Keyboard.GetState();
              
             if (tangentbord.IsKeyDown(Keys.Left))
@@ -67,10 +70,14 @@ namespace SpelProjekt_Pevin
                 basketRectangle.X += 3;
             }
 
-            
-            int randomApple1 = randomApple.Next(0, graphics.PreferredBackBufferWidth - apple.Width);
+            if (slumpTal.Next(0, 101) < 1)
+            {
+                int randomAppleX = slumpTal.Next(0, graphics.PreferredBackBufferWidth - apple.Width);
+                apples.Add(new Rectangle(randomAppleX, 0 - apple.Height, apple.Width, apple.Height));
+                
+            }
 
-            appleRectangle.Y += 2;
+            
 
             if (true)
             {
@@ -86,6 +93,12 @@ namespace SpelProjekt_Pevin
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
+
+            foreach (var äpple in apples)
+            {
+                spriteBatch.Draw(apple, appleRectangle, Color.White);
+            }
+
             spriteBatch.Draw(apple, appleRectangle, Color.White);
             spriteBatch.Draw(basket, basketRectangle, Color.White);
             spriteBatch.End();
